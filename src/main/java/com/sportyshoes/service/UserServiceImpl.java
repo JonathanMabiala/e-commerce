@@ -146,4 +146,16 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	@Override
+	@Transactional
+	public void saveNewAdmin(User theUser) {
+		
+		theUser.setRoleId(1);
+		theUser.setStatus("VERIFIED");
+		theUser.setPassword(encoder.encode(theUser.getPassword()));
+		Role userRole = roleDAO.findByRole("ADMIN_USER");
+		theUser.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+		userDAO.saveCustomer(theUser);
+	}
+
 }

@@ -104,6 +104,18 @@ public class UserController {
 		return "add-customer";
 	}
 	
+	@GetMapping("/add_admin")
+	public String showFormForAddAdmin(Model theModel) {
+		
+		//Create model attribute to bind form data
+		
+		User theCustomer = new User();
+		
+		theModel.addAttribute("user",theCustomer);
+		
+		return "register_admin";
+	}
+	
 	@PostMapping("/save_customer")
 	public String saveCustomer(@ModelAttribute("customer") User theUser){
 		
@@ -150,6 +162,19 @@ public class UserController {
 		//Save the customer using our service
 		
 		userService.saveAdmin(theUser);
+		
+		return "redirect:/";
+		
+	}
+	
+	@PostMapping("/save_new_admin")
+	public String saveNewAdmin(@ModelAttribute("user") User theUser){
+		
+		//Set the role_id
+		
+		//Save the customer using our service
+		
+		userService.saveNewAdmin(theUser);
 		
 		return "redirect:/";
 		
@@ -224,12 +249,12 @@ public class UserController {
 	}
 	
 	@GetMapping("/delete")
-	public String deleteCustomer(@RequestParam("customerId") int theId, Model theModel) {
+	public String deleteCustomer(@RequestParam("id") int theId, Model theModel) {
 		
 		//Delete the customer
 		userService.deleteCustomer(theId);
 		
-		return "redirect:/customer/list";
+		return "redirect:/customer/admins";
 	}
 	
 }

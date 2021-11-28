@@ -25,4 +25,5 @@ public interface UserService {
 	public void saveAdmin(User theUser);
 	public void saveAdminPassword(User theUser);
 	void saveCustomerPassword(User theUser);
+	public void saveNewAdmin(User theUser);
 }
